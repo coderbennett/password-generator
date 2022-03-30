@@ -16,7 +16,7 @@ generateBtn.addEventListener("click", writePassword);
 function generatePassword() {
   var specialCharacters = "!@#$%^&*()_+=,./?";
   var lowercase = "abcdefghijklmnopqrstuvwxyz";
-  var uppercase = lowercase.toLocaleUpperCase;
+  var uppercase = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
   var nums = "0123456789";
   var pwLength = 0;
   var hasLowercase, hasUppercase, hasNumbers, hasSpecial = false;
@@ -36,19 +36,35 @@ function generatePassword() {
     }
   }
 
-  var password = "";
+  var passwordCharacters = "";
+  console.log(passwordCharacters);
   if (hasLowercase) {
-    password = password.concat(lowercase);
+    passwordCharacters = passwordCharacters.concat('', lowercase);
+    console.log(passwordCharacters);
   }
   if (hasUppercase) {
-    password = password.concat(uppercase);
+    passwordCharacters = passwordCharacters.concat('', uppercase);
+    console.log(passwordCharacters);
   }
   if (hasNumbers) {
-    password = password.concat(nums);
+    passwordCharacters = passwordCharacters.concat('', nums);
+    console.log(passwordCharacters);
   }
   if (hasSpecial) {
-    password = password.concat(specialCharacters);
+    passwordCharacters = passwordCharacters.concat('', specialCharacters);
+    console.log(passwordCharacters);
   }
 
-  
+  var randoArray = passwordCharacters.split('');
+  console.log(randoArray);
+  var passArray = [];
+
+  for (var i = 0; i < pwLength+1; i++) {
+    passArray.push(randoArray[Math.random() * randoArray.length]);
+  }
+
+  console.log(passArray);
+  var password = passArray.join('');
+  console.log(password);
+  return password;
 }
