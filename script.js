@@ -19,12 +19,9 @@ function generatePassword() {
   var lowercase = "abcdefghijklmnopqrstuvwxyz";
   var uppercase = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
   var nums = "0123456789";
-  var pwLength = 0;
   var hasLowercase, hasUppercase, hasNumbers, hasSpecial = false;
 
-  while (pwLength < 8 || pwLength > 128 ){
-    pwLength = prompt("How long should your password be? \n(Between 8-128 characters)");
-  }
+  var pwLength = passwordLength();
 
   while (!hasLowercase && !hasUppercase && !hasNumbers && !hasSpecial) {
       hasLowercase = confirm("Do you want lowercase letters in your password?");
@@ -62,4 +59,14 @@ function generatePassword() {
   var password = passArray.join('');
   password = password.slice(0,pwLength);
   return password;
+}
+
+function passwordLength(){
+  var length;
+  length = prompt("How long would you like your password to be? \n(Between 8-128 characters)");
+
+  if(length < 8 || length > 128) {
+    passwordLength();
+  } 
+  return length;
 }
