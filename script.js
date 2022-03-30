@@ -19,20 +19,10 @@ function generatePassword() {
   var lowercase = "abcdefghijklmnopqrstuvwxyz";
   var uppercase = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
   var nums = "0123456789";
-  var hasLowercase, hasUppercase, hasNumbers, hasSpecial = false;
 
   var pwLength = passwordLength();
 
-  while (!hasLowercase && !hasUppercase && !hasNumbers && !hasSpecial) {
-      hasLowercase = confirm("Do you want lowercase letters in your password?");
-      hasUppercase = confirm("Do you want uppercase letters in your password?");
-      hasNumbers = confirm("Do you want numbers in your password?");
-      hasSpecial = confirm("Do you want special characters in your password?");
-
-    if (!hasLowercase && !hasUppercase && !hasNumbers && !hasSpecial) {
-      alert("You must have at least one type of character set for your password to generate.\nPlease try again.");
-    }
-  }
+  var pwCharacters = whichChars();
 
   var passwordCharacters = "";
 
@@ -61,7 +51,7 @@ function generatePassword() {
   return password;
 }
 
-function passwordLength(){
+function passwordLength() {
   var length;
   length = prompt("How long would you like your password to be? \n(Between 8-128 characters)");
 
@@ -69,4 +59,17 @@ function passwordLength(){
     passwordLength();
   } 
   return length;
+}
+
+function whichChars() {
+  var passwordCharacters = [false, false, false, false];
+  passwordCharacters[0] = confirm("Do you want lowercase letters in your password?");
+  passwordCharacters[1] = confirm("Do you want uppercase letters in your password?");
+  passwordCharacters[2] = confirm("Do you want numbers in your password?");
+  passwordCharacters[3] = confirm("Do you want special characters in your password?");
+
+  if (!passwordCharacters.includes(true)) {
+    alert("You must have at least one type of character set for your password to generate.\nPlease try again.");
+    whichChars();
+  }
 }
