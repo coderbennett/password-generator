@@ -21,10 +21,11 @@ function generatePassword() {
   var pwLength = 0;
   var hasLowercase, hasUppercase, hasNumbers, hasSpecial = false;
 
-  while (pwLength < 8 || pwLength > 128) {
+  while (pwLength < 8 || pwLength > 128 ){
     pwLength = prompt("How long should your password be? \n(Between 8-128 characters)");
   }
 
+  console.log(pwLength);
   while (!hasLowercase && !hasUppercase && !hasNumbers && !hasSpecial) {
       hasLowercase = confirm("Do you want lowercase letters in your password?");
       hasUppercase = confirm("Do you want uppercase letters in your password?");
@@ -60,7 +61,7 @@ function generatePassword() {
   var passArray = [];
 
   for (var i = 0; i < pwLength+1; i++) {
-    passArray.push(randoArray[Math.random() * randoArray.length]);
+    passArray.push(randoArray[Math.floor(Math.random() * (randoArray.length - 1))]);
   }
 
   console.log(passArray);
