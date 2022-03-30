@@ -14,6 +14,7 @@ function writePassword() {
 generateBtn.addEventListener("click", writePassword);
 
 function generatePassword() {
+  
   var specialCharacters = "!@#$%^&*()_+=,./?";
   var lowercase = "abcdefghijklmnopqrstuvwxyz";
   var uppercase = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
@@ -25,7 +26,6 @@ function generatePassword() {
     pwLength = prompt("How long should your password be? \n(Between 8-128 characters)");
   }
 
-  console.log(pwLength);
   while (!hasLowercase && !hasUppercase && !hasNumbers && !hasSpecial) {
       hasLowercase = confirm("Do you want lowercase letters in your password?");
       hasUppercase = confirm("Do you want uppercase letters in your password?");
@@ -38,36 +38,28 @@ function generatePassword() {
   }
 
   var passwordCharacters = "";
-  console.log(passwordCharacters);
+
   if (hasLowercase) {
     passwordCharacters = passwordCharacters.concat('', lowercase);
-    console.log(passwordCharacters);
   }
   if (hasUppercase) {
     passwordCharacters = passwordCharacters.concat('', uppercase);
-    console.log(passwordCharacters);
   }
   if (hasNumbers) {
     passwordCharacters = passwordCharacters.concat('', nums);
-    console.log(passwordCharacters);
   }
   if (hasSpecial) {
     passwordCharacters = passwordCharacters.concat('', specialCharacters);
-    console.log(passwordCharacters);
   }
 
   var randoArray = passwordCharacters.split('');
-  console.log(randoArray);
   var passArray = [];
 
   for (var i = 0; i < pwLength+1; i++) {
     passArray.push(randoArray[Math.floor(Math.random() * (randoArray.length - 1))]);
   }
 
-  console.log(passArray);
   var password = passArray.join('');
-  console.log(password);
   password = password.slice(0,pwLength);
-  console.log(password);
   return password;
 }
