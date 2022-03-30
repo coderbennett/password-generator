@@ -14,9 +14,12 @@ function writePassword() {
 generateBtn.addEventListener("click", writePassword);
 
 function generatePassword() {
-  var specialCharacters, lowercase, uppercase, nums = "";
-  var hasLowercase, hasUppercase, hasNumbers, hasSpecial = false;
+  var specialCharacters = "!@#$%^&*()_+=,./?";
+  var lowercase = "abcdefghijklmnopqrstuvwxyz";
+  var uppercase = lowercase.toLocaleUpperCase;
+  var nums = "0123456789";
   var pwLength = 0;
+  var hasLowercase, hasUppercase, hasNumbers, hasSpecial = false;
 
   while (pwLength < 8 || pwLength > 128) {
     pwLength = prompt("How long should your password be? \n(Between 8-128 characters)");
@@ -34,6 +37,18 @@ function generatePassword() {
   }
 
   var password = "";
-  if (haslowercase) {
+  if (hasLowercase) {
+    password = password.concat(lowercase);
   }
+  if (hasUppercase) {
+    password = password.concat(uppercase);
+  }
+  if (hasNumbers) {
+    password = password.concat(nums);
+  }
+  if (hasSpecial) {
+    password = password.concat(specialCharacters);
+  }
+
+  
 }
