@@ -14,32 +14,13 @@ function writePassword() {
 generateBtn.addEventListener("click", writePassword);
 
 function generatePassword() {
-  
-  var specialCharacters = "!@#$%^&*()_+=,./?";
-  var lowercase = "abcdefghijklmnopqrstuvwxyz";
-  var uppercase = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
-  var nums = "0123456789";
 
   var pwLength = passwordLength();
 
-  var pwCharacters = whichChars();
+  var selectedCharacters = whichChars();
 
-  var passwordCharacters = "";
+  var randoArray = createCharArray(selectedCharacters);
 
-  if (hasLowercase) {
-    passwordCharacters = passwordCharacters.concat('', lowercase);
-  }
-  if (hasUppercase) {
-    passwordCharacters = passwordCharacters.concat('', uppercase);
-  }
-  if (hasNumbers) {
-    passwordCharacters = passwordCharacters.concat('', nums);
-  }
-  if (hasSpecial) {
-    passwordCharacters = passwordCharacters.concat('', specialCharacters);
-  }
-
-  var randoArray = passwordCharacters.split('');
   var passArray = [];
 
   for (var i = 0; i < pwLength+1; i++) {
@@ -62,7 +43,9 @@ function passwordLength() {
 }
 
 function whichChars() {
+
   var passwordCharacters = [false, false, false, false];
+
   passwordCharacters[0] = confirm("Do you want lowercase letters in your password?");
   passwordCharacters[1] = confirm("Do you want uppercase letters in your password?");
   passwordCharacters[2] = confirm("Do you want numbers in your password?");
@@ -72,4 +55,29 @@ function whichChars() {
     alert("You must have at least one type of character set for your password to generate.\nPlease try again.");
     whichChars();
   }
+
+}
+
+function createCharArray(boolArray) {
+
+  var specialCharacters = "!@#$%^&*()_+=,./?";
+  var lowercase = "abcdefghijklmnopqrstuvwxyz";
+  var uppercase = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+  var nums = "0123456789";
+  var passwordCharacters = "";
+
+  if (boolArray[0]) {
+    passwordCharacters = passwordCharacters.concat('', lowercase);
+  }
+  if (boolArray[1]) {
+    passwordCharacters = passwordCharacters.concat('', uppercase);
+  }
+  if (boolArray[3]) {
+    passwordCharacters = passwordCharacters.concat('', nums);
+  }
+  if (boolArray[4]) {
+    passwordCharacters = passwordCharacters.concat('', specialCharacters);
+  }
+
+  return passwordCharacters.split('');
 }
