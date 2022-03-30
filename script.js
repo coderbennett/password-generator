@@ -67,5 +67,7 @@ function generatePassword() {
   console.log(passArray);
   var password = passArray.join('');
   console.log(password);
+  password = password.slice(0,pwLength);
+  console.log(password);
   return password;
 }
