@@ -128,9 +128,5 @@ function randomizePassword(characterArray, max) {
   //we initialize the password variable by joining all the characters in the passArray with no spaces
   //this .join function will return a string
   var password = passArray.join('');
-
-  //just to make sure the password is the correct length we will slice the password string
-  //to be the correct size
-  password = password.slice(0,max);
   return password;
 }
