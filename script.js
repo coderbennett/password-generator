@@ -20,28 +20,23 @@ function generatePassword() {
   //create a variable pwLength which is set to the
   //return value of passwordLength from user input
   var pwLength = passwordLength();
+  console.log(pwLength);
 
   //create a variable selectedCharacters which will take
   //the return value of whichChars, a function who
   //takes user input to decide which chars the
   //password should include
   var selectedCharacters = whichChars();
+  console.log(selectedCharacters);
 
   //create a variable randoArray which will take in
   // the createCharArray return value, which will be
   //an array of all the characters the user allowed to
   //be in the password
-  var randoArray = createCharArray(selectedCharacters);
+  var charArray = createCharArray(selectedCharacters);
+  console.log(charArray);
 
-  var passArray = [];
-
-  for (var i = 0; i < pwLength+1; i++) {
-    passArray.push(randoArray[Math.floor(Math.random() * (randoArray.length - 1))]);
-  }
-
-  var password = passArray.join('');
-  password = password.slice(0,pwLength);
-  return password;
+  return randomizePassword(charArray, pwLength);
 }
 
 //this function prompts the user to enter the length of their desired password
@@ -54,7 +49,6 @@ function passwordLength() {
   if(length < 8 || length > 128) {
     passwordLength();
   } 
-
   //if the directions have been followed then we can return the length they requested
   return length;
 }
@@ -80,6 +74,7 @@ function whichChars() {
     whichChars();
   }
 
+  return passwordCharacters;
 }
 
 
@@ -115,4 +110,27 @@ function createCharArray(boolArray) {
   //where we are splitting it up into each letter individually with no spaces
   //this also returns each of those characters in an array
   return passwordCharacters.split('');
+
+}
+
+//this function will randomly grab a character in the characterArray and push it to the passArray
+function randomizePassword(characterArray, max) {
+
+  //initialize an empty array to place randomized characters
+  var passArray = [];
+
+  //this for loop should loop to the max number of times
+  for (var i = 0; i < max; i++) {
+    //here we are pushing random elements from the characterArray into the password array
+    passArray.push(characterArray[Math.floor(Math.random() * (characterArray.length - 1))]);
+  }
+
+  //we initialize the password variable by joining all the characters in the passArray with no spaces
+  //this .join function will return a string
+  var password = passArray.join('');
+
+  //just to make sure the password is the correct length we will slice the password string
+  //to be the correct size
+  password = password.slice(0,max);
+  return password;
 }
