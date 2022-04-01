@@ -21,15 +21,10 @@ function generatePassword() {
   //return value of passwordLength from user input
   var pwLength = 0;
 
+
   //initialize an array of 4 false booleans, we will use the indices 0-3 
   //to identify lowercase, uppercase, numbers and special characters respectively
   var selectedCharacters = [false, false, false, false];
-
-  //create a variable randoArray which will take in
-  // the createCharArray return value, which will be
-  //an array of all the characters the user allowed to
-  //be in the password
-  var charArray = [];
 
   pwLength = passwordLength(pwLength);
 
@@ -39,9 +34,7 @@ function generatePassword() {
   //password should include
   selectedCharacters = whichChars(selectedCharacters);
 
-  charArray = createCharArray(selectedCharacters);
-
-  return randomizePassword(charArray, pwLength);
+  return randomizePassword(pwLength, selectedCharacters);
 }
 
 //this function prompts the user to enter the length of their desired password
@@ -53,7 +46,7 @@ function passwordLength() {
   if(length < 8 || length > 128 || isNaN(length)) {
     passwordLength(length);
   } 
-
+  console.log("password length: " + length);
   //if the directions have been followed then we can return the length they requested
   return length;
 }
@@ -74,56 +67,37 @@ function whichChars(passwordCharacters) {
     alert("You must have at least one type of character set for your password to generate.\nPlease try again.");
     whichChars(passwordCharacters);
   }
-
+  console.log("passwordcharacter choices: " + passwordCharacters);
   return passwordCharacters;
 }
 
-
-//this function will establish an array of characters the user finds acceptable for their password
-function createCharArray(boolArray) {
+//this function will randomly grab a character in the characterArray and push it to the passArray
+function randomizePassword(max, booleanArray) {
 
   //initialize each set of characters for each option a user could select
   var specialCharacters = "!@#$%^&*()_+=,./?";
   var lowercase = "abcdefghijklmnopqrstuvwxyz";
   var uppercase = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
   var nums = "0123456789";
-
-  //initialize an empty string to be concatenated soon
-  var passwordCharacters = "";
-
-  //the following if statement looks through the array passed into this function
-  //to see which characters to add into the passwordCharacters string
-  //0 is for lowercase, 1 is for uppercase, 2 is for nums and 3 is for special chars
-  if (boolArray[0]) {
-    passwordCharacters = passwordCharacters.concat('', lowercase);
-  }
-  if (boolArray[1]) {
-    passwordCharacters = passwordCharacters.concat('', uppercase);
-  }
-  if (boolArray[3]) {
-    passwordCharacters = passwordCharacters.concat('', nums);
-  }
-  if (boolArray[4]) {
-    passwordCharacters = passwordCharacters.concat('', specialCharacters);
-  }
-
-  //here we will return the passwordCharacters string, but with the split method
-  //where we are splitting it up into each letter individually with no spaces
-  //this also returns each of those characters in an array
-  return passwordCharacters.split('');
-
-}
-
-//this function will randomly grab a character in the characterArray and push it to the passArray
-function randomizePassword(characterArray, max) {
-
+  
   //initialize an empty array to place randomized characters
   var passArray = [];
 
   //this for loop should loop to the max number of times
+  //each if statement checks for what chars the user requested and places them accordingly
   for (var i = 0; i < max; i++) {
-    //here we are pushing random elements from the characterArray into the password array
-    passArray.push(characterArray[Math.floor(Math.random() * (characterArray.length - 1))]);
+    if(booleanArray[0] && passArray.length < max) {
+      passArray.push(lowercase[Math.floor(Math.random() * (lowercase.length - 1))]);
+    }
+    if(booleanArray[1] && passArray.length < max) {
+      passArray.push(uppercase[Math.floor(Math.random() * (uppercase.length - 1))]);
+    }
+    if(booleanArray[2] && passArray.length < max) {
+      passArray.push(nums[Math.floor(Math.random() * (nums.length - 1))]);
+    }
+    if(booleanArray[3] && passArray.length < max) {
+      passArray.push(specialCharacters[Math.floor(Math.random() * (specialCharacters.length - 1))]);
+    }
   }
 
   //we initialize the password variable by joining all the characters in the passArray with no spaces

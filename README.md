@@ -40,11 +40,10 @@ To create this password generator I split up the key parts into separate functio
 The **generate password** function is the mother function of the generator here. Each of the functions within do most of the work. As you can see below, this function mostly just contains function invocations.
 
     pwLength = passwordLength(pwLength);
-    selectedCharacters = whichChars();
-    charArray = createCharArray(selectedCharacters);
-    return randomizePassword(charArray, pwLength);
+    selectedCharacters = whichChars(selectedCharacters);
+    return randomizePassword(pwLength, selectedCharacters);
 
-*The above code snippet shows the most important 4 lines of code within this function.*
+*The above code snippet shows the function invocation lines of code within this function.*
 
 ### **Password Length**
 The **password length** function prompts the user for their desired password length, stores it in a variable named length, and then checks to see if the user followed the prompts instructions correctly with an if statement.
@@ -69,24 +68,10 @@ To keep track of what choices the user makes, I am using an array with booleans 
 
 *Above is a code snippet of the boolean array, and each question posed to the user.*
 
-### **Create Character Array**
-The **create character array** function simply creates an array with all the possible characters the user could have in their password, depending on their previous choices.
-
-The function has 4 variables initialized with all possible characters, and has four if statements which check the array from the previous function to see the user's choices of character types. If the if statement runs true, it will add all the characters from that specified type into a string.
-
-Lastly, this function returns an array with all the characters by using the split function on the string with all the characters.
-
-    var specialCharacters = "!@#$%^&*()_+=,./?";
-    var lowercase = "abcdefghijklmnopqrstuvwxyz";
-    var uppercase = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
-    var nums = "0123456789";
-
-*Above you can see the initialization of each character string.*
-
 ### **Randomize Password**
-The **randomize password** function takes in the character array from the previous function, and the length of the password.
+The **randomize password** function takes in the boolean array from the previous function, and the length of the password.
 
-The function starts by initializing an array for the password and a for loop to iterate <code>length</code> number of times. Each iteration will push a random character from the character array into the password array by using <code>Math.random</code> and <code>Math.floor</code>.
+The main process in this function is the for loop which checks which characters the user requested with a series of if statements and places characters accordingly.
 
 The last step of this function is to use the join array method, which brings all the characters in the array together in a string.
 
