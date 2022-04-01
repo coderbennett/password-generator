@@ -19,36 +19,33 @@ function generatePassword() {
 
   //create a variable pwLength which is set to the
   //return value of passwordLength from user input
-  var pwLength = passwordLength();
-  console.log(pwLength);
+  var pwLength = passwordLength(pwLength);
 
   //create a variable selectedCharacters which will take
   //the return value of whichChars, a function who
   //takes user input to decide which chars the
   //password should include
   var selectedCharacters = whichChars();
-  console.log(selectedCharacters);
 
   //create a variable randoArray which will take in
   // the createCharArray return value, which will be
   //an array of all the characters the user allowed to
   //be in the password
   var charArray = createCharArray(selectedCharacters);
-  console.log(charArray);
 
   return randomizePassword(charArray, pwLength);
 }
 
 //this function prompts the user to enter the length of their desired password
 function passwordLength() {
-  var length;
   length = prompt("How long would you like your password to be? \n(Between 8-128 characters)");
 
   //if the user incorrectly follows directions they will be prompted over and over again
   //until they follow the directions
-  if(length < 8 || length > 128) {
-    passwordLength();
+  if(length < 8 || length > 128 || isNaN(length)) {
+    passwordLength(length);
   } 
+
   //if the directions have been followed then we can return the length they requested
   return length;
 }
