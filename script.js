@@ -17,21 +17,29 @@ generateBtn.addEventListener("click", writePassword);
 // to process user inputs and return a password accordingly
 function generatePassword() {
 
-  //create a variable pwLength which is set to the
+  //create a variable pwLength which will be to the
   //return value of passwordLength from user input
-  var pwLength = passwordLength(pwLength);
+  var pwLength = 0;
 
-  //create a variable selectedCharacters which will take
-  //the return value of whichChars, a function who
-  //takes user input to decide which chars the
-  //password should include
-  var selectedCharacters = whichChars();
+  //initialize an array of 4 false booleans, we will use the indices 0-3 
+  //to identify lowercase, uppercase, numbers and special characters respectively
+  var selectedCharacters = [false, false, false, false];
 
   //create a variable randoArray which will take in
   // the createCharArray return value, which will be
   //an array of all the characters the user allowed to
   //be in the password
-  var charArray = createCharArray(selectedCharacters);
+  var charArray = [];
+
+  pwLength = passwordLength(pwLength);
+
+
+  //the return value of whichChars will
+  //take user input to decide which chars the
+  //password should include
+  selectedCharacters = whichChars(selectedCharacters);
+
+  charArray = createCharArray(selectedCharacters);
 
   return randomizePassword(charArray, pwLength);
 }
@@ -51,11 +59,7 @@ function passwordLength() {
 }
 
 //this function confirms which types of characters the user would like in their password
-function whichChars() {
-
-  //initialize an array of 4 false booleans, we will use the indices 0-3 
-  //to identify lowercase, uppercase, numbers and special characters respectively
-  var passwordCharacters = [false, false, false, false];
+function whichChars(passwordCharacters) {
 
   passwordCharacters[0] = confirm("Do you want lowercase letters in your password?");
   passwordCharacters[1] = confirm("Do you want uppercase letters in your password?");
@@ -68,7 +72,7 @@ function whichChars() {
   //over again
   if (!passwordCharacters.includes(true)) {
     alert("You must have at least one type of character set for your password to generate.\nPlease try again.");
-    whichChars();
+    whichChars(passwordCharacters);
   }
 
   return passwordCharacters;
